@@ -206,6 +206,22 @@ public class SmsBackupService extends ServiceBase {
        * server. This includes all messages with
        * <code>date &lt; {@link #getMaxSyncedDate()}</code> which are no drafs.
        */
+
+      // http://www.anddev.org/viewtopic.php?p=34248
+      // sms
+      // _id|thread_id|address|person|date         |protocol|read|status|type|reply_path_present|subject|body|service_center|locked|error_code|seen
+      // SMS
+      // 218|30      |+41123 |       |1285508332565|0       |0    |-1    |1  |0                 |        |text|+41794999000  |0    |0          |1
+      // MMS
+      // 219|31      |       |       |1285535300404|        |1    |-1    |3  |                  |        |Ff  |              |0    |0          |0
+      // parts
+      // _id|mid|seq|ct         |name                  |chset|cd|fn|cid       |cl      |ctt_s|ctt_t|_data|text
+      // 11 |3  |0  |image/jpeg |PART_1285535366845.jpg|     |  |  |<IMG_.jpg>|IMG_.jpg|     |     |/data/data/com.android.providers.telephony/app_parts/PART_1285541417972|
+      // 12 |3  |0  |text/plain |text_0.txt            |106  |  |  |<text.txt>|text.txt|     |     | |body
+      // threads
+      // _id|date         |message_count|recipient_ids|snippet|snippet_cs|read|type|error|has_attachment
+      // 31 |1285535300000|0            |31           |Ff     |0         |1   |0   |0    |0
+
       private Cursor getItemsToSync(int max) {
           Log.d(TAG, "getItemToSync(max=" + max+")");
           String sortOrder = SmsConsts.DATE;
